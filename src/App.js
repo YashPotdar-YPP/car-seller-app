@@ -1,23 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React from "react";
+
+// Import all your page components into an array
+var pages = Array.from({ length: 10 }, (_, i) => `page${i + 1}`);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          {pages.map((page, index) => (
+            <Route key={index} path={`/${index === 0 ? "" : index + 1}`} element={React.createElement(require(`./components/${page}`).default)} />
+          ))}
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
